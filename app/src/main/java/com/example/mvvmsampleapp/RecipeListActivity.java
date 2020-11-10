@@ -6,11 +6,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.example.mvvmsampleapp.models.Recipe;
 import com.example.mvvmsampleapp.requests.RecipeApi;
 import com.example.mvvmsampleapp.requests.ServiceGenerator;
 import com.example.mvvmsampleapp.requests.responses.RecipeResponse;
 import com.example.mvvmsampleapp.requests.responses.RecipeSearchResponse;
+import com.example.mvvmsampleapp.viewmodels.RecipeListViewModel;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,19 +29,24 @@ public class RecipeListActivity extends BaseActivity {
     private Button button;
     private static final String TAG = "RecipeListActivity";
 
+    private RecipeListViewModel recipeListViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_list);
 
-        button = (Button) findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
+        recipeListViewModel = new ViewModelProvider(this).get(RecipeListViewModel.class);
+
+    }
+
+    private void subscribeObservers(){
+        recipeListViewModel.getRecipes().observe(this, new Observer<List<Recipe>>() {
             @Override
-            public void onClick(View v) {
-                testRetrofiRecipe();
+            public void onChanged(List<Recipe> recipes) {
+
             }
         });
-
     }
 
     private void testRetrofitRecipeSearch(){
