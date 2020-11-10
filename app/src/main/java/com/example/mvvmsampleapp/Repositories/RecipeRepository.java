@@ -1,9 +1,9 @@
 package com.example.mvvmsampleapp.Repositories;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 import com.example.mvvmsampleapp.models.Recipe;
+import com.example.mvvmsampleapp.requests.RecipeApiClient;
 
 import java.util.List;
 
@@ -18,13 +18,14 @@ public class RecipeRepository {
         return instance;
     }
 
-    private MutableLiveData<List<Recipe>> mRecipes;
+    private RecipeApiClient recipeApiClient;
 
     private RecipeRepository() {
-        mRecipes = new MutableLiveData<>();
+        recipeApiClient = RecipeApiClient.getInstance();
     }
 
     public LiveData<List<Recipe>> getRecipes(){
-        return mRecipes;
+        return recipeApiClient.getRecipes();
     }
+
 }
