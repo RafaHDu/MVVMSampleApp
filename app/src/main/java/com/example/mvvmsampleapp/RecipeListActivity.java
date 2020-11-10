@@ -14,6 +14,7 @@ import com.example.mvvmsampleapp.requests.RecipeApi;
 import com.example.mvvmsampleapp.requests.ServiceGenerator;
 import com.example.mvvmsampleapp.requests.responses.RecipeResponse;
 import com.example.mvvmsampleapp.requests.responses.RecipeSearchResponse;
+import com.example.mvvmsampleapp.util.Testing;
 import com.example.mvvmsampleapp.viewmodels.RecipeListViewModel;
 
 import java.io.IOException;
@@ -38,17 +39,35 @@ public class RecipeListActivity extends BaseActivity {
 
         recipeListViewModel = new ViewModelProvider(this).get(RecipeListViewModel.class);
 
+        subscribeObservers();
+
+        button = (Button) findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchRecipeApi("chicken", 1);
+            }
+        });
+
     }
 
     private void subscribeObservers(){
         recipeListViewModel.getRecipes().observe(this, new Observer<List<Recipe>>() {
             @Override
             public void onChanged(List<Recipe> recipes) {
-
+                if (recipes != null){
+                    //cuz can be null if net fails
+                    Testing.printRecipes(recipes, TAG);
+                }
             }
         });
     }
 
+    private void searchRecipeApi(String query, int pageNumber){
+        recipeListViewModel.searchRecipeApi(query, pageNumber);
+    }
+
+    //TESTS
     private void testRetrofitRecipeSearch(){
         RecipeApi recipeApi = ServiceGenerator.getRecipeApi();
         Call<RecipeSearchResponse> responseCall = recipeApi.searchRecipe("chicken", "1");
