@@ -41,6 +41,8 @@ public class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         //Função chamada pela RecyclerView para mostrar a informação num determinado sitio.
 
         RequestOptions requestOptions = new RequestOptions().placeholder(R.drawable.ic_launcher_background);
+        //cuz of security configurations options, on Glide, on API 28 have changed its not able, anymore, to retrieve resources from HTTP requests, its needed to specify Network configurations file.
+        //HTTPS requests are fine. https://stackoverflow.com/questions/45940861/android-8-cleartext-http-traffic-not-permitted
         Glide.with(holder.itemView.getContext())
                 .setDefaultRequestOptions(requestOptions)
                 .load(recipes.get(position).getImage_url())
