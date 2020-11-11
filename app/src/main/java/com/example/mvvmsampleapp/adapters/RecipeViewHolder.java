@@ -13,7 +13,7 @@ import org.w3c.dom.Text;
 
 public class RecipeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    ////Responsáel por referenciar as View bem como por introduzir a informação nelas;
+    //Responsáel por referenciar as View bem como por introduzir a informação nelas;
 
     TextView recipe_title, recipe_publisher, recipe_social_score;
     AppCompatImageView recipe_image;

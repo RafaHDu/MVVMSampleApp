@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -29,7 +30,6 @@ import retrofit2.Response;
 
 public class RecipeListActivity extends BaseActivity implements OnRecipeListener {
 
-    private Button button;
     private static final String TAG = "RecipeListActivity";
     private RecyclerView recipe_list;
     private RecipeListViewModel recipeListViewModel;
@@ -42,16 +42,32 @@ public class RecipeListActivity extends BaseActivity implements OnRecipeListener
 
         recipeListViewModel = new ViewModelProvider(this).get(RecipeListViewModel.class);
 
-        recipe_list = (RecyclerView) findViewById(R.id.recipe_list);
         initRecyclerView();
-        searchRecipeApi("chicken", 1);
         subscribeObservers();
+        initSearchView();
     }
 
     private void initRecyclerView(){
+        recipe_list = (RecyclerView) findViewById(R.id.recipe_list);
         recipeRecyclerAdapter = new RecipeRecyclerAdapter(this);
         recipe_list.setLayoutManager(new LinearLayoutManager(this));
         recipe_list.setAdapter(recipeRecyclerAdapter);
+    }
+
+    private void initSearchView(){
+        final SearchView searchView = (SearchView) findViewById(R.id.search_view);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchRecipeApi(query, 1);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
     }
 
     private void subscribeObservers(){
