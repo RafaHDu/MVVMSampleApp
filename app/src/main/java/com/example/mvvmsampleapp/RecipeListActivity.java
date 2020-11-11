@@ -1,14 +1,16 @@
 package com.example.mvvmsampleapp;
 
-import android.opengl.Visibility;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mvvmsampleapp.adapters.OnRecipeListener;
+import com.example.mvvmsampleapp.adapters.RecipeRecyclerAdapter;
 import com.example.mvvmsampleapp.models.Recipe;
 import com.example.mvvmsampleapp.requests.RecipeApi;
 import com.example.mvvmsampleapp.requests.ServiceGenerator;
@@ -25,12 +27,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RecipeListActivity extends BaseActivity {
+public class RecipeListActivity extends BaseActivity implements OnRecipeListener {
 
     private Button button;
     private static final String TAG = "RecipeListActivity";
-
+    private RecyclerView recipe_list;
     private RecipeListViewModel recipeListViewModel;
+    private RecipeRecyclerAdapter recipeRecyclerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,16 +42,16 @@ public class RecipeListActivity extends BaseActivity {
 
         recipeListViewModel = new ViewModelProvider(this).get(RecipeListViewModel.class);
 
+        recipe_list = (RecyclerView) findViewById(R.id.recipe_list);
+        initRecyclerView();
+        searchRecipeApi("chicken", 1);
         subscribeObservers();
+    }
 
-        button = (Button) findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                searchRecipeApi("chicken", 1);
-            }
-        });
-
+    private void initRecyclerView(){
+        recipeRecyclerAdapter = new RecipeRecyclerAdapter(this);
+        recipe_list.setLayoutManager(new LinearLayoutManager(this));
+        recipe_list.setAdapter(recipeRecyclerAdapter);
     }
 
     private void subscribeObservers(){
@@ -58,6 +61,7 @@ public class RecipeListActivity extends BaseActivity {
                 if (recipes != null){
                     //cuz can be null if net fails
                     Testing.printRecipes(recipes, TAG);
+                    recipeRecyclerAdapter.setRecipes(recipes);
                 }
             }
         });
@@ -128,4 +132,13 @@ public class RecipeListActivity extends BaseActivity {
 
     }
 
+    @Override
+    public void OnRecipeClick(int position) {
+
+    }
+
+    @Override
+    public void onCategoryClick(String category) {
+
+    }
 }
