@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.mvvmsampleapp.R;
 import com.example.mvvmsampleapp.models.Recipe;
 
@@ -38,6 +40,13 @@ public class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         //Função chamada pela RecyclerView para mostrar a informação num determinado sitio.
+
+        RequestOptions requestOptions = new RequestOptions().placeholder(R.drawable.ic_launcher_background);
+        Glide.with(holder.itemView.getContext())
+                .setDefaultRequestOptions(requestOptions)
+                .load(recipes.get(position))
+                .into(((RecipeViewHolder)holder).recipe_image);
+
         ((RecipeViewHolder)holder).recipe_title.setText(recipes.get(position).getTitle());
         ((RecipeViewHolder)holder).recipe_publisher.setText(recipes.get(position).getPublisher());
         ((RecipeViewHolder)holder).recipe_social_score.setText(String.valueOf(Math.round(recipes.get(position).getSocial_rank())));
