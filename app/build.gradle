@@ -50,4 +50,9 @@ dependencies {
     // LiveData
     implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
 
+    //CardView
+    implementation "androidx.cardview:cardview:1.0.0"
+
+    //RecyclerView
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
 }
