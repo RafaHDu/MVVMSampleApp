@@ -59,7 +59,8 @@ public class RecipeListActivity extends BaseActivity implements OnRecipeListener
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                searchRecipeApi(query, 1);
+                recipeRecyclerAdapter.displayLoading();
+                recipeListViewModel.searchRecipeApi(query, 1);
                 return false;
             }
 
@@ -83,9 +84,17 @@ public class RecipeListActivity extends BaseActivity implements OnRecipeListener
         });
     }
 
-    private void searchRecipeApi(String query, int pageNumber){
-        recipeListViewModel.searchRecipeApi(query, pageNumber);
+    @Override
+    public void OnRecipeClick(int position) {
+
     }
+
+    @Override
+    public void onCategoryClick(String category) {
+
+    }
+
+
 
     //TESTS
     private void testRetrofitRecipeSearch(){
@@ -148,13 +157,4 @@ public class RecipeListActivity extends BaseActivity implements OnRecipeListener
 
     }
 
-    @Override
-    public void OnRecipeClick(int position) {
-
-    }
-
-    @Override
-    public void onCategoryClick(String category) {
-
-    }
 }
