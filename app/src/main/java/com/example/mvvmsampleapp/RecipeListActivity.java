@@ -18,6 +18,7 @@ import com.example.mvvmsampleapp.requests.ServiceGenerator;
 import com.example.mvvmsampleapp.requests.responses.RecipeResponse;
 import com.example.mvvmsampleapp.requests.responses.RecipeSearchResponse;
 import com.example.mvvmsampleapp.util.Testing;
+import com.example.mvvmsampleapp.util.VerticalSpacingItemDecorator;
 import com.example.mvvmsampleapp.viewmodels.RecipeListViewModel;
 
 import java.io.IOException;
@@ -52,6 +53,8 @@ public class RecipeListActivity extends BaseActivity implements OnRecipeListener
 
     private void initRecyclerView(){
         recipe_list = (RecyclerView) findViewById(R.id.recipe_list);
+        VerticalSpacingItemDecorator verticalSpacingItemDecorator = new VerticalSpacingItemDecorator(30);
+        recipe_list.addItemDecoration(verticalSpacingItemDecorator);
         recipeRecyclerAdapter = new RecipeRecyclerAdapter(this);
         recipe_list.setLayoutManager(new LinearLayoutManager(this));
         recipe_list.setAdapter(recipeRecyclerAdapter);
