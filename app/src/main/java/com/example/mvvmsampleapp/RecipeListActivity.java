@@ -45,6 +45,9 @@ public class RecipeListActivity extends BaseActivity implements OnRecipeListener
         initRecyclerView();
         subscribeObservers();
         initSearchView();
+        if(!recipeListViewModel.isViewingRecipes()){
+            displaySearchCategories();
+        }
     }
 
     private void initRecyclerView(){
@@ -77,7 +80,7 @@ public class RecipeListActivity extends BaseActivity implements OnRecipeListener
             public void onChanged(List<Recipe> recipes) {
                 if (recipes != null){
                     //cuz can be null if net fails
-                    Testing.printRecipes(recipes, TAG);
+                    //Testing.printRecipes(recipes, TAG);
                     recipeRecyclerAdapter.setRecipes(recipes);
                 }
             }
@@ -91,10 +94,14 @@ public class RecipeListActivity extends BaseActivity implements OnRecipeListener
 
     @Override
     public void onCategoryClick(String category) {
-
+        recipeRecyclerAdapter.displayLoading();
+        recipeListViewModel.searchRecipeApi(category, 1);
     }
 
-
+    private void displaySearchCategories(){
+        recipeListViewModel.setViewingRecipes(false);
+        recipeRecyclerAdapter.displaySeachCategories();
+    }
 
     //TESTS
     private void testRetrofitRecipeSearch(){

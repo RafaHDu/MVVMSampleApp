@@ -13,8 +13,10 @@ public class RecipeListViewModel extends ViewModel {
     //This VieModel will be responsible to getting/holding/retrieving the recipes that will be displayed in the application
 
     private RecipeRepository recipeRepository;
+    private boolean isViewingRecipes;
 
     public RecipeListViewModel() {
+        isViewingRecipes = false;
         recipeRepository = RecipeRepository.getInstance();
     }
 
@@ -23,7 +25,15 @@ public class RecipeListViewModel extends ViewModel {
     }
 
     public void searchRecipeApi(String query, int pageNumber){
+        isViewingRecipes = true;
         recipeRepository.searchRecipeApi(query, pageNumber);
     }
 
+    public boolean isViewingRecipes() {
+        return isViewingRecipes;
+    }
+
+    public void setViewingRecipes(boolean viewingRecipes) {
+        isViewingRecipes = viewingRecipes;
+    }
 }
