@@ -2,9 +2,13 @@ package com.example.mvvmsampleapp;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -51,6 +55,8 @@ public class RecipeListActivity extends BaseActivity implements OnRecipeListener
         if(!recipeListViewModel.isViewingRecipes()){
             displaySearchCategories();
         }
+
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
     }
 
     private void initRecyclerView(){
@@ -123,7 +129,19 @@ public class RecipeListActivity extends BaseActivity implements OnRecipeListener
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.recipe_search_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.action_categories){
+            displaySearchCategories();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     //TESTS
     private void testRetrofitRecipeSearch(){
