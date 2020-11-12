@@ -83,8 +83,10 @@ public class RecipeListActivity extends BaseActivity implements OnRecipeListener
             public void onChanged(List<Recipe> recipes) {
                 if (recipes != null){
                     //cuz can be null if net fails
-                    //Testing.printRecipes(recipes, TAG);
-                    recipeRecyclerAdapter.setRecipes(recipes);
+                    if(recipeListViewModel.isViewingRecipes()){
+                        //Testing.printRecipes(recipes, TAG);
+                        recipeRecyclerAdapter.setRecipes(recipes);
+                    }
                 }
             }
         });
@@ -105,6 +107,17 @@ public class RecipeListActivity extends BaseActivity implements OnRecipeListener
         recipeListViewModel.setViewingRecipes(false);
         recipeRecyclerAdapter.displaySeachCategories();
     }
+
+    @Override
+    public void onBackPressed() {
+        if(recipeListViewModel.isBackPressed()){
+            super.onBackPressed();
+        } else {
+            displaySearchCategories();
+        }
+    }
+
+
 
     //TESTS
     private void testRetrofitRecipeSearch(){

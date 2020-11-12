@@ -16,7 +16,6 @@ public class RecipeListViewModel extends ViewModel {
     private boolean isViewingRecipes;
 
     public RecipeListViewModel() {
-        isViewingRecipes = false;
         recipeRepository = RecipeRepository.getInstance();
     }
 
@@ -36,4 +35,13 @@ public class RecipeListViewModel extends ViewModel {
     public void setViewingRecipes(boolean viewingRecipes) {
         isViewingRecipes = viewingRecipes;
     }
+
+    public boolean isBackPressed(){
+        if(isViewingRecipes){
+            isViewingRecipes = false;
+            return false;
+        }
+        return true;
+    }
+
 }
