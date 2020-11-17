@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
@@ -21,7 +20,6 @@ import com.example.mvvmsampleapp.requests.RecipeApi;
 import com.example.mvvmsampleapp.requests.ServiceGenerator;
 import com.example.mvvmsampleapp.requests.responses.RecipeResponse;
 import com.example.mvvmsampleapp.requests.responses.RecipeSearchResponse;
-import com.example.mvvmsampleapp.util.Testing;
 import com.example.mvvmsampleapp.util.VerticalSpacingItemDecorator;
 import com.example.mvvmsampleapp.viewmodels.RecipeListViewModel;
 
@@ -117,7 +115,7 @@ public class RecipeListActivity extends BaseActivity implements OnRecipeListener
 
     private void displaySearchCategories(){
         recipeListViewModel.setViewingRecipes(false);
-        recipeRecyclerAdapter.displaySeachCategories();
+        recipeRecyclerAdapter.displaySearchCategories();
     }
 
     @Override

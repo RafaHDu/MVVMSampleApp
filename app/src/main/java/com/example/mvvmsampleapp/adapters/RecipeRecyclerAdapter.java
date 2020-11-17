@@ -109,11 +109,9 @@ public class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
     private boolean isLoading(){
-        if(recipes != null) {
-            if(recipes.size() > 0){
-                if(recipes.get(recipes.size()-1).getTitle().equals("LOADING...")){
-                    return true;
-                }
+        if(recipes.size() > 0){
+            if(recipes.get(recipes.size()-1).getTitle().equals("LOADING...")){
+                return true;
             }
         }
         return false;
@@ -128,7 +126,7 @@ public class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         return 0;
     }
 
-    public void displaySeachCategories(){
+    public void displaySearchCategories(){
         List<Recipe> categories = new ArrayList<>();
         for(int i = 0; i <= Constants.DEFAULT_SEARCH_CATEGORIES.length-1; i++){
             Recipe recipe = new Recipe();

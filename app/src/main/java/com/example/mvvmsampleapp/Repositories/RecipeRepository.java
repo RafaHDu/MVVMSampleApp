@@ -19,6 +19,8 @@ public class RecipeRepository {
     }
 
     private RecipeApiClient recipeApiClient;
+    private String query;
+    private int pageNumber;
 
     private RecipeRepository() {
         recipeApiClient = RecipeApiClient.getInstance();
@@ -32,6 +34,8 @@ public class RecipeRepository {
         if(pageNumber == 0){
             pageNumber = 1;
         }
+        this.query = query;
+        this.pageNumber = pageNumber;
         recipeApiClient.searchRecipeApi(query, pageNumber);
     }
 
