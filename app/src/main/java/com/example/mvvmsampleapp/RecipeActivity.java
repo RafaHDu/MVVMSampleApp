@@ -1,6 +1,7 @@
 package com.example.mvvmsampleapp;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -15,6 +16,8 @@ public class RecipeActivity extends BaseActivity {
     private AppCompatImageView recipe_image;
     private TextView recipe_title, recipe_social_score;
     private LinearLayout ingredients_container;
+
+    private static final String TAG = "RecipeActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,7 @@ public class RecipeActivity extends BaseActivity {
     private void getIncomingIntent(){
         if(getIntent().hasExtra("recipe")){
             Recipe recipe = getIntent().getParcelableExtra("recipe");
+            Log.d(TAG, "getIncomingIntent: " + recipe.getTitle());
         }
     }
 
