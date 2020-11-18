@@ -8,7 +8,6 @@ import java.util.List;
 
 public class RecipeSearchResponse {
 
-
     @SerializedName("count")
     @Expose()
     private int count;

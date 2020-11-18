@@ -10,7 +10,7 @@ public class RecipeResponse {
     //1 step - findind the 'recipe' object
     @SerializedName("recipe")
     //2 step
-    @Expose() //to gson convert can deserialize or serialize the data from the reponse
+    @Expose() //to gson convert can deserialize or serialize the data from the response
     private Recipe recipe;
 
     public Recipe getRecipe() {
