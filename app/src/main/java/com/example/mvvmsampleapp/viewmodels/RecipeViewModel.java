@@ -13,6 +13,7 @@ public class RecipeViewModel extends ViewModel {
     //This VieModel will be responsible to getting/holding/retrieving the recipes that will be displayed in the application
 
     private RecipeRepository recipeRepository;
+    private String recipeId;
 
     public RecipeViewModel() {
         recipeRepository = RecipeRepository.getInstance();
@@ -23,7 +24,16 @@ public class RecipeViewModel extends ViewModel {
     }
 
     public void searchRecipeById(String rId){
+        recipeId = rId;
         recipeRepository.searchRecipeById(rId);
+    }
+
+    public String getRecipeId() {
+        return recipeId;
+    }
+
+    public void setRecipeId(String recipeId) {
+        this.recipeId = recipeId;
     }
 
 }
